@@ -3,6 +3,6 @@ import { Router } from 'express';
 
 const routes = Router();
 
-routes.use('/users', usersRoutes);
+routes.use('/login', usersRoutes);
 
 export { routes };

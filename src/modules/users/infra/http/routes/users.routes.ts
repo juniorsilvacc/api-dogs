@@ -2,11 +2,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { AuthenticatedUserController } from '../controllers/AuthenticatedUserController';
 import { CreateUserController } from '../controllers/CreateUserController';
+import { SendForgotPasswordEmailController } from '../controllers/SendForgotPasswordEmailController';
 
 const usersRoutes = Router();
 
 const createUserController = new CreateUserController();
 const authenticatedUserController = new AuthenticatedUserController();
+const sendForgotPassword = new SendForgotPasswordEmailController();
 
 usersRoutes.post(
   '/',
@@ -29,6 +31,16 @@ usersRoutes.post(
     },
   }),
   createUserController.handle,
+);
+
+usersRoutes.post(
+  '/perdeu',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+    },
+  }),
+  sendForgotPassword.handle,
 );
 
 export { usersRoutes };

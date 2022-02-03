@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import 'express-async-errors';
 import { errors } from 'celebrate';
@@ -36,6 +37,6 @@ app.use(
   },
 );
 
-app.listen(3333, () => {
+app.listen(process.env.PORT, () => {
   console.log('Server started on port 3333');
 });

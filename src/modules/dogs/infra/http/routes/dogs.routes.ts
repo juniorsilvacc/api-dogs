@@ -7,12 +7,14 @@ import { UploadDogImageController } from '../controllers/UploadDogImageControlle
 
 import multer from 'multer';
 import uploadConfig from '@config/upload';
+import { CreateCommentController } from '../controllers/CreateCommentController';
 
 const dogsRoutes = Router();
 
 const createDogController = new CreateDogController();
 const removeDogController = new RemoveDogController();
 const uploadDogImageController = new UploadDogImageController();
+const createCommentController = new CreateCommentController();
 
 const uploadImages = multer(uploadConfig);
 
@@ -45,6 +47,12 @@ dogsRoutes.post(
   ensureAuthenticated,
   uploadImages.single('image'),
   uploadDogImageController.handle,
+);
+
+dogsRoutes.post(
+  '/comment',
+  ensureAuthenticated,
+  createCommentController.handle,
 );
 
 export { dogsRoutes };

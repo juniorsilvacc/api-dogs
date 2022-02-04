@@ -1,5 +1,7 @@
+import { ICommentRepository } from '@modules/dogs/domain/repositories/ICommentRepository';
 import { IDogImageRepository } from '@modules/dogs/domain/repositories/IDogImageRepository';
 import { IDogRepository } from '@modules/dogs/domain/repositories/IDogRepository';
+import { CommentRepository } from '@modules/dogs/infra/typeorm/repositories/CommentRepository';
 import { DogImageRepository } from '@modules/dogs/infra/typeorm/repositories/DogImageRepository';
 import { DogRepository } from '@modules/dogs/infra/typeorm/repositories/DogRepository';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
@@ -24,4 +26,9 @@ container.registerSingleton<IDogRepository>('DogRepository', DogRepository);
 container.registerSingleton<IDogImageRepository>(
   'DogImageRepository',
   DogImageRepository,
+);
+
+container.registerSingleton<ICommentRepository>(
+  'CommentRepository',
+  CommentRepository,
 );

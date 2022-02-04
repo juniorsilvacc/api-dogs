@@ -22,6 +22,16 @@ class DogRepository implements IDogRepository {
 
     return dog;
   }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
+
+  async findById(id: string): Promise<IDog | undefined> {
+    const dog = await this.repository.findOne(id);
+
+    return dog;
+  }
 }
 
 export { DogRepository };

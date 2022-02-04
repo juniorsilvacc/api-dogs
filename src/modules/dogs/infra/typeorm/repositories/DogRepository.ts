@@ -11,8 +11,9 @@ class DogRepository implements IDogRepository {
     this.repository = getRepository(Dog);
   }
 
-  async create({ name, weight, age }: ICreateDogDTO): Promise<IDog> {
+  async create({ user_id, name, weight, age }: ICreateDogDTO): Promise<IDog> {
     const dog = this.repository.create({
+      user_id,
       name,
       weight,
       age,

@@ -8,6 +8,9 @@ class Dog implements IDog {
   id: string;
 
   @Column()
+  user_id: string;
+
+  @Column()
   name: string;
 
   @Column()

@@ -10,8 +10,9 @@ class CreateDogService {
     private dogRepository: IDogRepository,
   ) {}
 
-  async execute({ name, weight, age }: ICreateDogDTO): Promise<IDog> {
+  async execute({ user_id, name, weight, age }: ICreateDogDTO): Promise<IDog> {
     const dog = await this.dogRepository.create({
+      user_id,
       name,
       weight,
       age,

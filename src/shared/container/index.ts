@@ -1,3 +1,5 @@
+import { IDogRepository } from '@modules/dogs/domain/repositories/IDogRepository';
+import { DogRepository } from '@modules/dogs/infra/typeorm/repositories/DogRepository';
 import { IUsersRepository } from '@modules/users/domain/repositories/IUsersRepository';
 import { IUserTokensRepository } from '@modules/users/domain/repositories/IUserTokensRepository';
 import { UsersRepository } from '@modules/users/infra/typeorm/repositories/UsersRepository';
@@ -14,3 +16,5 @@ container.registerSingleton<IUserTokensRepository>(
   'UserTokensRepository',
   UserTokensRepository,
 );
+
+container.registerSingleton<IDogRepository>('DogRepository', DogRepository);

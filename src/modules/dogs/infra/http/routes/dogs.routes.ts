@@ -3,14 +3,21 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { CreateDogController } from '../controllers/CreateDogController';
 import { RemoveDogController } from '../controllers/RemoveDogController';
+import { UploadDogImageController } from '../controllers/UploadDogImageController';
+
+import multer from 'multer';
+import uploadConfig from '@config/upload';
 
 const dogsRoutes = Router();
 
 const createDogController = new CreateDogController();
 const removeDogController = new RemoveDogController();
+const uploadDogImageController = new UploadDogImageController();
+
+const uploadImages = multer(uploadConfig);
 
 dogsRoutes.post(
-  '/photo',
+  '/post',
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -31,6 +38,13 @@ dogsRoutes.delete(
   }),
   ensureAuthenticated,
   removeDogController.handle,
+);
+
+dogsRoutes.post(
+  '/photo/:id',
+  ensureAuthenticated,
+  uploadImages.single('image'),
+  uploadDogImageController.handle,
 );
 
 export { dogsRoutes };

@@ -6,7 +6,7 @@ import { Router } from 'express';
 const routes = Router();
 
 routes.use('/users', usersRoutes);
-routes.use('password', passwordRoutes);
+routes.use('/password', passwordRoutes);
 routes.use('/dogs', dogsRoutes);
 
 export { routes };

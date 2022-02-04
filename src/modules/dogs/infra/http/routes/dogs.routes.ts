@@ -2,10 +2,12 @@ import ensureAuthenticated from '@shared/infra/http/middlewares/ensureAuthentica
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { CreateDogController } from '../controllers/CreateDogController';
+import { RemoveDogController } from '../controllers/RemoveDogController';
 
 const dogsRoutes = Router();
 
 const createDogController = new CreateDogController();
+const removeDogController = new RemoveDogController();
 
 dogsRoutes.post(
   '/photo',
@@ -18,6 +20,17 @@ dogsRoutes.post(
   }),
   ensureAuthenticated,
   createDogController.handle,
+);
+
+dogsRoutes.delete(
+  '/remove/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().required().uuid(),
+    },
+  }),
+  ensureAuthenticated,
+  removeDogController.handle,
 );
 
 export { dogsRoutes };

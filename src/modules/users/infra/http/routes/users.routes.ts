@@ -2,18 +2,14 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 import { AuthenticatedUserController } from '../controllers/AuthenticatedUserController';
 import { CreateUserController } from '../controllers/CreateUserController';
-import { ResetPasswordController } from '../controllers/ResetPasswordController';
-import { SendForgotPasswordEmailController } from '../controllers/SendForgotPasswordEmailController';
 
 const usersRoutes = Router();
 
 const createUserController = new CreateUserController();
 const authenticatedUserController = new AuthenticatedUserController();
-const sendForgotPassword = new SendForgotPasswordEmailController();
-const resetPassword = new ResetPasswordController();
 
 usersRoutes.post(
-  '/',
+  '/signin',
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().required(),
@@ -24,7 +20,7 @@ usersRoutes.post(
 );
 
 usersRoutes.post(
-  '/criar',
+  '/signup',
   celebrate({
     [Segments.BODY]: {
       username: Joi.string().required(),
@@ -33,27 +29,6 @@ usersRoutes.post(
     },
   }),
   createUserController.handle,
-);
-
-usersRoutes.post(
-  '/perdeu',
-  celebrate({
-    [Segments.BODY]: {
-      email: Joi.string().email().required(),
-    },
-  }),
-  sendForgotPassword.handle,
-);
-
-usersRoutes.post(
-  '/resetar',
-  celebrate({
-    [Segments.BODY]: {
-      token: Joi.string().uuid().required(),
-      password: Joi.string().required().min(6).max(32),
-    },
-  }),
-  resetPassword.handle,
 );
 
 export { usersRoutes };

@@ -33,6 +33,15 @@ class DogRepository implements IDogRepository {
 
     return dog;
   }
+
+  async findByUser(user_id: string): Promise<IDog[]> {
+    const dogs = await this.repository.find({
+      where: { user_id },
+      relations: ['comment'],
+    });
+
+    return dogs;
+  }
 }
 
 export { DogRepository };

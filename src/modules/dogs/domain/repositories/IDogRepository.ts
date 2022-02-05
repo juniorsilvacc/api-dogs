@@ -6,6 +6,7 @@ interface IDogRepository {
   delete(id: string): Promise<void>;
   findById(id: string): Promise<IDog | undefined>;
   findByUser(user_id: string): Promise<IDog[]>;
+  findAllDogs(): Promise<IDog[]>;
 }
 
 export { IDogRepository };

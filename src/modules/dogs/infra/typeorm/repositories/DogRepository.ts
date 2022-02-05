@@ -42,6 +42,14 @@ class DogRepository implements IDogRepository {
 
     return dogs;
   }
+
+  async findAllDogs(): Promise<IDog[]> {
+    const dogs = await this.repository.find({
+      relations: ['comment'],
+    });
+
+    return dogs;
+  }
 }
 
 export { DogRepository };

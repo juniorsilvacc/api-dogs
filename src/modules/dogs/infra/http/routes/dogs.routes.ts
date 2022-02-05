@@ -9,6 +9,7 @@ import multer from 'multer';
 import uploadConfig from '@config/upload';
 import { CreateCommentController } from '../controllers/CreateCommentController';
 import { ListDogCommentsController } from '../controllers/ListDogCommentsController';
+import { ListAllDogsController } from '../controllers/ListAllDogsController';
 
 const dogsRoutes = Router();
 
@@ -17,6 +18,7 @@ const removeDogController = new RemoveDogController();
 const uploadDogImageController = new UploadDogImageController();
 const createCommentController = new CreateCommentController();
 const listDogCommentsController = new ListDogCommentsController();
+const listAllDogsController = new ListAllDogsController();
 
 const uploadImages = multer(uploadConfig);
 
@@ -58,5 +60,7 @@ dogsRoutes.post(
 );
 
 dogsRoutes.get('/home', ensureAuthenticated, listDogCommentsController.handle);
+
+dogsRoutes.get('/', listAllDogsController.handle);
 
 export { dogsRoutes };

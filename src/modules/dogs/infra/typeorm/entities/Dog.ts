@@ -1,6 +1,13 @@
 import { IDog } from '@modules/dogs/domain/models/IDog';
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+import { Comment } from './Comment';
 
 @Entity('dogs')
 class Dog implements IDog {
@@ -9,6 +16,9 @@ class Dog implements IDog {
 
   @Column()
   user_id: string;
+
+  @OneToMany(() => Comment, comment => comment.dog)
+  comment: Comment[];
 
   @Column()
   name: string;

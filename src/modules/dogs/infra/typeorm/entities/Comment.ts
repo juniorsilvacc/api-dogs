@@ -1,6 +1,14 @@
 import { IComment } from '@modules/dogs/domain/models/IComment';
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
+import { Dog } from './Dog';
 
 @Entity('comments')
 class Comment implements IComment {
@@ -9,6 +17,10 @@ class Comment implements IComment {
 
   @Column()
   comment: string;
+
+  @ManyToOne(() => Dog, dog => dog.comment)
+  @JoinColumn({ name: 'dog_id' })
+  dog: Dog;
 
   @Column()
   dog_id: string;

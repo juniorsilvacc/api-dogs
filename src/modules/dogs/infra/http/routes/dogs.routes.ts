@@ -54,7 +54,16 @@ dogsRoutes.post(
 );
 
 dogsRoutes.post(
-  '/comment',
+  '/comment/:id',
+  celebrate({
+    [Segments.BODY]: {
+      user_id: Joi.string().required().uuid(),
+      comment: Joi.string().required(),
+    },
+    [Segments.PARAMS]: {
+      id: Joi.string().required().uuid(),
+    },
+  }),
   ensureAuthenticated,
   createCommentController.handle,
 );

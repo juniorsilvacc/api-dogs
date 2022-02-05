@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUsers1643840799833 implements MigrationInterface {
+export class CreateDogImages1643989773570 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'dog_images',
         columns: [
           {
             name: 'id',
@@ -12,17 +12,11 @@ export class CreateUsers1643840799833 implements MigrationInterface {
             isPrimary: true,
           },
           {
-            name: 'username',
-            type: 'varchar',
-            isUnique: true,
+            name: 'dog_id',
+            type: 'uuid',
           },
           {
-            name: 'email',
-            type: 'varchar',
-            isUnique: true,
-          },
-          {
-            name: 'password',
+            name: 'image_name',
             type: 'varchar',
           },
           {
@@ -31,11 +25,21 @@ export class CreateUsers1643840799833 implements MigrationInterface {
             default: 'now()',
           },
         ],
+        foreignKeys: [
+          {
+            name: 'FKDogImage',
+            referencedTableName: 'dogs',
+            referencedColumnNames: ['id'],
+            columnNames: ['dog_id'],
+            onDelete: 'SET NULL',
+            onUpdate: 'SET NULL',
+          },
+        ],
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('dog_images');
   }
 }
